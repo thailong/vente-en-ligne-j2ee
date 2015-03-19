@@ -45,8 +45,9 @@ h2 {
 
 h3 {
   text-transform: uppercase;
-  font-size: 0.9em;
-  color: #5D6F73;
+  font: 400 0.9em arial, sans-serif;
+  color: #536C71;
+  border-bottom: 10px solid #ddd;
 }
 
 h4 {

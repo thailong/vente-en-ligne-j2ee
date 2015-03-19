@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+   <ui:composition>
+       <!-- Right column -->
+       <div class="floatRight width75">
+            <h3>Mise a jour categories</h3>
+            <h:form>
+                    <table border="0">
+                        <tr>
+                            <td width="80"><h:outputLabel value="Libelle: "/></td>
+                            <td><h:inputText value="#{categorieController.categorie.libelle}" required="true"/></td>
+                        </tr>
+                        <tr>
+                            <td> &zwj; </td>
+                        </tr>
+                    </table>
+                    <h:commandButton value="Sauver" action="#{categorieController.doSave}" class="btn btn-primary"/>
+                    &zwnj;<h:commandButton value="Retour" action="#{categorieController.doCancel}" class="btn btn-warning"/>
+            </h:form>
+       </div>
+       <!-- Right column end -->
+   </ui:composition>
+</h:body>
+</html>
+

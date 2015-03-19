@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+   <ui:composition>
+       <!-- Right column -->
+       <div class="floatRight width75">
+            <h3>Liste de categories</h3>
+                <h:form enctype="multipart/form-data">
+                    <h:dataTable value="#{categorieController.categList}" var="cat" border="0">
+                        <h:column>    
+                            <h:commandLink action="#{categorieController.doEdit}" value="#{cat.libelle}"  />
+                        </h:column>
+                    </h:dataTable>
+                    
+                    <table>
+                        <tr>&zwj;</tr>
+                    </table>
+                    <div style="margin: 7px">
+                        <h:commandButton  action="#{categorieController.doNew}" class="btn btn-primary" value="Ajouter"/>
+                       <!-- &zwnj;<h:commandButton action="{categorieController.doDelete}" class="btn btn-warning" value="Supprimer"/>-->
+                    </div>
+                </h:form>
+
+       </div>
+       <!-- Right column end -->
+   </ui:composition>
+</h:body>
+</html>
+

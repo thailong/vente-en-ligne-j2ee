@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+   <ui:composition>
+       <!-- Right column -->
+       <div class="floatRight width75">
+          <h3>Nouvelle categorie</h3>
+          <h:form enctype="multipart/form-data">
+               <div class="form-group">
+                 <label for="Libelle">Libelle</label>
+                 <h:inputText class="form-control" id="Libelle" value="#{categorieController.categorie.libelle}"/>
+               </div>
+              <!--
+               <div class="form-group">
+                 <label for="inputImageUpload">Image categorie</label>
+                 <h:inputFile id="inputImageUpload" value="{categorieController.categorie.imageLink}"/>
+                 <p class="help-block">Choisir une image de cette categorie.</p>
+               </div>
+              -->
+               <div style="margin: 5px">
+                   <h:commandButton action="#{categorieController.doCreate}" class="btn btn-primary" value="Enregistrer"/>
+                   &zwnj;<h:commandButton action="#{categorieController.doCancel}" class="btn btn-warning" value="Annuler"/>
+               </div>
+           </h:form>
+
+       </div>
+       <!-- Right column end -->
+   </ui:composition>
+</h:body>
+</html>
+

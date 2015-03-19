@@ -11,23 +11,20 @@
             <div class="floatLeft width25">
                 <div class="borderBlue">
                     <h2> <span class="dark">Categories</span></h2>
+                    <h:form enctype="multipart/form-data">
+                        <div class="form-group">
+                            <ul class="thumbs">
+                                <h:dataTable value="#{categorieController.listCategories}" var="v" >
+                                    <h:column>
+                                        <li> <h:outputLink styleClass="thumb" value="www.facebook.com" >#{v.libelle.toUpperCase()}</h:outputLink></li>
+                                    </h:column>
+                                </h:dataTable>
+                            </ul> 
+                        </div>
 
-                    <ul class="thumbs">
-                         <li>
-                            <h:outputLink value="http://www.studio7designs.com" styleClass="thumb"><span>INFORMATIQUE </span></h:outputLink>        </li>
-                        <li>
-                            <h:outputLink value="http://www.opensourcetemplates.org" styleClass="thumb"><span>TELEPHONIE</span></h:outputLink>        </li>
-                         <li>
-                            <h:outputLink value="http://www.opensourcetemplates.org" styleClass="thumb"><span>VETEMENTS</span></h:outputLink>        </li>
-                         <li>
-                            <h:outputLink value="http://www.opensourcetemplates.org" styleClass="thumb"><span>CHAUSSURES</span></h:outputLink>        </li>
-                        <li>
-                            <h:outputLink value="" styleClass="thumb"><span>SPORT </span></h:outputLink>        </li>
-                        <li>
-                            <h:outputLink value="" styleClass="thumb"><span>BRICOLAGE</span></h:outputLink>        </li>
-
-                    </ul>
+                    </h:form>
                 </div>
+                    
             </div>
 
             <!-- Left thumbnails end -->

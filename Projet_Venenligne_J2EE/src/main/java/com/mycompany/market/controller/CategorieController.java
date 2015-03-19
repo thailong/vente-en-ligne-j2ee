@@ -55,41 +55,28 @@ public class CategorieController {
 
     public String doNew() {
         categorie = new Categorie();
-        return "newCategorie.xhtml";
+        return "new_categories.xhtml";
     }
 
     public String doCreate() {
         categorie = categEJB.create(categorie);
-        return "listCategorie.xhtml";
+        listCategories = categEJB.findAll();
+        return "list_categories.xhtml";
     }
     
     public String doCancel() {
-        return "listCategorie.xhtml";
-    }
-
-    public String doDelete() {
-        List<Categorie> categories = (List<Categorie>)categList.getWrappedData();
-        categEJB.delete(onlySelected(categories));
-        updateCategList();
-        return "listCategorie.xhtml";
-    }
-
-    private List<Categorie> onlySelected(List<Categorie> list) {
-        for (Iterator<Categorie> it = list.iterator(); it.hasNext(); ) {
-            if (!(it.next().isSelected()))
-                it.remove();
-        }
-        return list;
+        return "list_categories.xhtml";
     }
 
     public String doEdit() {
         categorie = (Categorie)categList.getRowData(); // Voici comment on trouve le livre sélectionné
-        return "editCategorie.xhtml";
+        return "edit_categories.xhtml";
     }
 
     public String doSave() {
         categorie = categEJB.update(categorie);
-        return "listCategorie.xhtml";
+        listCategories = categEJB.findAll();
+        return "list_categories.xhtml";
     }
     // ======================================
     // =          Getters & Setters         =
@@ -120,6 +107,7 @@ public class CategorieController {
     }
 
     public ListDataModel getCategList() {
+         updateCategList();
         return categList;
     }
 
@@ -128,6 +116,7 @@ public class CategorieController {
     }
 
     public List<Categorie> getListCategories() {
+        
         return listCategories;
     }
 
