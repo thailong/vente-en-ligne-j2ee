@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:body>
+        <ui:composition>
+            <!-- Right column -->
+            <div class="floatRight width75">
+                <h1>Connexion</h1>
+
+                <h:form>
+                    <h:messages showDetail="true"/>
+                    <table border="0">
+                        <tr>
+                            <td><h:outputLabel value="Username: "/></td>
+                            <td><h:inputText value="#{loginController.user.username}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputLabel value="Password: "/></td>
+                            <td><h:inputSecret value="#{loginController.user.password}"/></td>
+                        </tr>
+                    </table>
+
+                    <h:commandButton value="Se connecter" action="#{loginController.doLogin}"/>
+                </h:form>
+
+            </div>
+            <!-- Right column end -->
+        </ui:composition>
+    </h:body>
+</html>
+
