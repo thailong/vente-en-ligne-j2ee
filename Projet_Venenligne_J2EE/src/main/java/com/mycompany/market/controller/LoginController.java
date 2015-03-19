@@ -11,13 +11,14 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 
 
 @ManagedBean
 @SessionScoped
 public class LoginController {
-
+    public static String USERNAMESESSION = "UserName";
     // ======================================
     // =             Attributes             =
     // ======================================
@@ -37,6 +38,8 @@ public class LoginController {
         Subject currentUser= SecurityUtils.getSubject(); 
         try {
             currentUser.login( token );
+            Session sess = currentUser.getSession();
+            sess.setAttribute(USERNAMESESSION, user.getUsername());
             //if no exception, that's it, we're done!
         } catch (AuthenticationException e) {
             addWarnMessage("Connexion impossible : ", "vérifiez les paramètres saisis");
