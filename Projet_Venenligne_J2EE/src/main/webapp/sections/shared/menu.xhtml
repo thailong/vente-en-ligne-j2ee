@@ -21,30 +21,29 @@
                     </button>
                     <a class="navbar-brand" href="#{request.contextPath}/home.xhtml">Accueil</a>
                   </div>
-
                   <!-- Collect the nav links, forms, and other content for toggling -->
                   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                       <ul class="nav navbar-nav">
                           <li><a href="#{request.contextPath}/produits.xhtml">Produits <span class="sr-only"></span></a></li>
                           <li><a href="#{request.contextPath}/list_categories.xhtml">Categorie <span class="sr-only"></span></a></li>
-                        <li><a href="#{request.contextPath}/panier.xhtml">Panier</a></li>
                         <shiro:notAuthenticated>
+                          <li><a href="#{request.contextPath}/panier.xhtml">Panier</a></li>  
                           <li><a href="#{request.contextPath}/login.xhtml">S'identifier</a></li>
                         </shiro:notAuthenticated>
                         <shiro:authenticated>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bonjour #{loginController.user.username}<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                        <li><a href="#{request.contextPath}/private/account.xhtml">Voir panier</a></li>
+                                        <li><a href="#{request.contextPath}/panier.xhtml">Voir panier</a></li>
                                         <li><a href="#">Voir les commandes</a></li>
                                         <div class="divider"></div>
-                                    <h:form>    
-                                        <li><h:commandLink actionListener="#{loginController.doLogout()}">Se déconnecter</h:commandLink></li>
-                                    </h:form>
+                                        <h:form>
+                                        <li><h:commandLink action="#{loginController.doLogout()}" value="Se déconnecter"/></li>
+                                        </h:form>
                                 </ul>
                             </li>
                         </shiro:authenticated>
-                    </ul>
+                       </ul>
                     <form class="navbar-form navbar-right" role="search">
                       <div class="form-group">
                         <input type="text" class="form-control" placeholder="Search"/>

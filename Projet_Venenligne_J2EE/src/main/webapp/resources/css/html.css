@@ -108,7 +108,7 @@ img.floatLeft {
 
 
 
-/* Lists */
+/* Lists 
 ul li {
   list-style-image: url("#{resource['images/bg:submenu1.gif']}");
 }
@@ -121,7 +121,7 @@ ol li {
 ol li span {
   font-weight: normal;
   color: #444;
-}
+}*/
 
 
 
@@ -201,6 +201,11 @@ input.radio {
 .panelInfo{
    margin: 10px;
    padding: 5px;
+}
+
+.produitImg{
+    width: 200px;
+    height: 200px;
 }
 
 

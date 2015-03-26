@@ -12,25 +12,45 @@ and open the template in the editor.
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:body>
         <div class="floatRight width75">
-            <h3>Liste de orders courant</h3>
-            <br/>
-            <c:if test="#{panierController.orders.size()==0}">
-                <p>Votre panier est vide actuellement</p>
-            </c:if>
+            <div>
+                <h3>Liste de ordres courant</h3>
+                <c:if test="#{panierController.orders.size()==0}">
+                    <p>Votre panier est vide actuellement</p>
+                </c:if>
+                <c:if test="#{panierController.orders.size()!=0}">
+                    <h:form>
+                        <p class="btn btn-group text-right">
+                                <h:commandButton class="btn btn-info" value="Passer la commande" />
+                                <h:commandButton action="#{panierController.doContinue()}" class="btn btn-success" value="Continuer l'achat" />
+                        </p>
+                    </h:form>                        
+                </c:if>          
+            </div>
             <h:form>
                 <ui:repeat value="#{panierController.orders}" var="order">
-                    <!--<div class="row">-->
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <img src="#{request.contextPath}#{order.produit.imageLink}" alt="Avatar"/>
-                                <div class="caption">
-                                    <h4>#{produit.libelle}</h4>
-                                    <p class="label label-danger">#{order.produit.prix} €</p>
-                                    <p>#{order.produit.description}</p>
-                                    <p style="text-align: center"><a href="#" class="btn btn-danger" role="button">Passer</a> <a href="#" class="btn btn-success" role="button">Revoir detail</a></p>
-                                </div>
-                            </div>
+                    <div class="media borderRed">
+                        <div class="media-left">
+                          <a href="#">
+                            <img class="media-object produitImg" src="#{request.contextPath}#{order.produit.imageLink}" alt="#{produit.libelle}"/>
+                          </a>
+                        <p class="label label-warning center-block">#{order.produit.prix*order.quality} €</p>
                         </div>
+                        <div class="media-body">
+                          <h4 class="media-heading">#{order.produit.libelle}</h4>
+                          <div class="form-group">
+                            <label for="Quality">Quantité </label>
+                            <h:selectOneMenu id="Quality" class="selectpicker" value="#{order.quality}" required="true">
+                                <f:selectItems value="#{panierController.listQuantity}" var="ph"
+                                               itemLabel="#{ph}" itemValue="#{ph}" />
+                            </h:selectOneMenu>
+                          </div>
+                          <p>#{order.produit.description}</p>
+                          <p class="btn btn-group pull-right">
+                              <h:commandButton action="#{panierController.doUpdateQuantity(order)}" class="btn btn-success" value="Sauvegarder"/>
+                              <h:commandButton action="#{panierController.doDeleteOrder(order)}" class="btn btn-danger" value="Supprimer"/>
+                          </p>
+                        </div>
+                    </div>
                     <!--</div>-->
                 </ui:repeat>
             </h:form>

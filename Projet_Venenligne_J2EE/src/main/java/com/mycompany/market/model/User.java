@@ -13,7 +13,15 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="users")
+@NamedQueries({
+    @NamedQuery(name = User.FIND_ALL, query = "SELECT u FROM User u"),
+    @NamedQuery(name = User.FIND_USERBYNAME, query = "SELECT u FROM User u WHERE u.username LIKE :userName"),  
+})
 public class User implements Serializable {
+    public final static String FIND_ALL = "User.findAll";
+    public final static String FIND_USERBYNAME= "User.findUserByName";
+    public final static String Del_SOM = "User.delete";
+    
     @Id
     @GeneratedValue
     private long id;

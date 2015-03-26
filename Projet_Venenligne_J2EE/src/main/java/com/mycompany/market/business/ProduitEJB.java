@@ -40,4 +40,8 @@ public class ProduitEJB {
     public void delete(Produit produit) {
         em.remove(em.merge(produit));
     }
+    
+    public Produit findById(int id){
+        return em.find(Produit.class, id);
+    }
 }
