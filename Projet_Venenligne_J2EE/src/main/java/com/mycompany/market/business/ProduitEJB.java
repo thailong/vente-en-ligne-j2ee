@@ -22,6 +22,12 @@ public class ProduitEJB {
         return query.getResultList();
     }
 
+    public List<Produit> findAllByCateg(long idCat) {
+        
+        Query query = em.createNamedQuery(Produit.FIND_PRODUCTBYCATEG).setParameter("idCateg", idCat);
+        return query.getResultList();
+    }
+    
     public Produit create(Produit produit) {
         em.persist(produit);
         return produit;

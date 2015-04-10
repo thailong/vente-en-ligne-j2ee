@@ -16,7 +16,7 @@
                             <ul class="thumbs">
                                 <h:dataTable value="#{categorieController.listCategories}" var="v" >
                                     <h:column>
-                                        <li> <h:outputLink styleClass="thumb" value="www.facebook.com" >#{v.libelle.toUpperCase()}</h:outputLink></li>
+                                        <li> <h:commandLink styleClass="thumb" action="#{produitController.doShowProdCateg(v.id)}" ><img src="#{request.contextPath}#{v.imageLink}" alt="Image categorie" /></h:commandLink></li>
                                     </h:column>
                                 </h:dataTable>
                             </ul> 

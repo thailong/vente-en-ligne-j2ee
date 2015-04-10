@@ -10,18 +10,22 @@
        <div class="floatRight width75">
             <h3>Liste de categories</h3>
                 <h:form enctype="multipart/form-data">
-                    <h:dataTable value="#{categorieController.categList}" var="cat" border="0">
-                        <h:column>    
-                            <h:commandLink action="#{categorieController.doEdit}" value="#{cat.libelle}"  />
-                        </h:column>
-                    </h:dataTable>
-                    
-                    <table>
-                        <tr>&zwj;</tr>
-                    </table>
-                    <div style="margin: 7px">
-                        <h:commandButton  action="#{categorieController.doNew}" class="btn btn-primary" value="Ajouter"/>
-                       <!-- &zwnj;<h:commandButton action="{categorieController.doDelete}" class="btn btn-warning" value="Supprimer"/>-->
+                    <div class="panel panel-info">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">
+                            Veuillez selectionnez la catégorie à modifier
+                            <h:commandButton style="float:right"  action="#{categorieController.doNew}" class="btn btn-success" value="Nouvelle categorie"/>
+                            <br/>&nbsp;
+                        </div>
+                        <h:dataTable class="table" value="#{categorieController.categList}" var="cat" border="0">
+                            <h:column>           
+                                <h:commandLink action="#{categorieController.doEdit}" value="#{cat.libelle}"  />
+                            </h:column>
+                            <h:column>
+                                <h:commandLink action="#{categorieController.doEdit}"><img src="#{request.contextPath}#{cat.imageLink}" alt="Image categorie" /></h:commandLink>
+                            </h:column>
+                            
+                        </h:dataTable>
                     </div>
                 </h:form>
 

@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
@@ -23,10 +24,14 @@ import javax.validation.constraints.Size;
  * @author Thais
  */
 @Entity
-@NamedQuery(name = Produit.FIND_ALL, query = "SELECT p FROM Produit p")
+@NamedQueries({
+    @NamedQuery(name = Produit.FIND_ALL, query = "SELECT p FROM Produit p"),
+    @NamedQuery(name = Produit.FIND_PRODUCTBYCATEG, query = "SELECT p FROM Produit p WHERE p.categorie.id =:idCateg")
+})
 public class Produit implements Serializable{
     public final static String FIND_ALL = "Produit.findAll";
     public final static String Del_SOM = "Produit.delete";
+    public final static String FIND_PRODUCTBYCATEG = "Produit.findProductByCateg";
 
     @Id
     @GeneratedValue

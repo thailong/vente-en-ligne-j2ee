@@ -1,30 +1,42 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#xA0;"> 
+]>
 <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      >
 
-<h:body>
-   <ui:composition>
-       <!-- Right column -->
-       <div class="floatRight width75">
-            <h3>Mise a jour categories</h3>
-            <h:form>
+    <ui:composition template="/WEB-INF/templates/twocol_a.xhtml">
+
+        <ui:define name="title">Edition de categories</ui:define>
+        <ui:define name="right" class="width75">
+            <!-- Right column -->
+            <div class="floatRight width75">
+                 <h3>Mise a jour categories</h3>
+                 <h:form enctype="multipart/form-data">
                     <table border="0">
                         <tr>
                             <td width="80"><h:outputLabel value="Libelle: "/></td>
                             <td><h:inputText value="#{categorieController.categorie.libelle}" required="true"/></td>
                         </tr>
-                        <tr>
-                            <td> &zwj; </td>
-                        </tr>
                     </table>
-                    <h:commandButton value="Sauver" action="#{categorieController.doSave}" class="btn btn-primary"/>
-                    &zwnj;<h:commandButton value="Retour" action="#{categorieController.doCancel}" class="btn btn-warning"/>
-            </h:form>
-       </div>
-       <!-- Right column end -->
-   </ui:composition>
-</h:body>
-</html>
+                     <br/>
+                     <div class="thumbnail">
+                         <label>Image de categorie</label>
+                         <img src="#{request.contextPath}#{categorieController.categorie.imageLink}" alt="Image categorie" />
+                     </div>
+                        <div class="form-group">
+                            <label for="inputImageUpload">Changer Image</label>
+                            <h:inputFile id="inputImageUpload" value="#{categorieController.categorie.file}"/>
+                        </div>
+                         <h:commandButton value="Sauver" action="#{categorieController.doSave}" class="btn btn-primary"/>
+                         &nbsp;<h:commandButton value="Retour" action="#{categorieController.doCancel}" class="btn btn-warning"/>
+                 </h:form>
+            </div>
+            <!-- Right column end -->
+        </ui:define>
 
+    </ui:composition>
+
+</html>

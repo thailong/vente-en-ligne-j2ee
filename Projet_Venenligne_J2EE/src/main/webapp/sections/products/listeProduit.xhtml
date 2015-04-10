@@ -4,7 +4,9 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<!DOCTYPE html>
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#xA0;"> 
+]>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -16,6 +18,7 @@ and open the template in the editor.
                 <h:commandButton action="#{produitController.doNew()}" class="btn btn-primary" value="Créer un nouveau"></h:commandButton> 
                 <br/>
             </h:form>
+            
             <h:form>
                 <ui:repeat value="#{produitController.newProduits}" var="produit">
                     <!--<div class="row">-->
@@ -26,7 +29,11 @@ and open the template in the editor.
                                     <h4>#{produit.libelle}</h4>
                                     <p class="label label-danger">#{produit.prix} €</p>
                                     <p>#{produit.description}</p>
-                                    <p style="text-align: center"> <h:commandButton action="#{panierController.addToCart(produit.id)}" class="btn btn-primary" value="Ajouter"/> <a href="#" class="btn btn-success" role="button">Voir detail</a></p>
+                                    <p style="text-align: center"> <h:commandButton action="#{panierController.addToCart(produit.id)}" class="btn btn-primary" value="Ajouter"/> 
+                            &nbsp;<h:commandButton action="#{produitController.doDetails()}" value="Details" class="btn btn-success">
+                                        <f:setPropertyActionListener target="#{produitController.produit}" value= "#{produit}" />
+                                    </h:commandButton></p>
+                                    <!--<a href="{request.contextPath}{produitController.doDetails(produit.id)}" class="btn btn-success" role="button">Voir detail</a></p>-->
                                 </div>
                             </div>
                         </div>

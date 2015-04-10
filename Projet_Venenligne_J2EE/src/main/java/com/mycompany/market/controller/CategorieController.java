@@ -11,15 +11,21 @@ package com.mycompany.market.controller;
  */
 import com.mycompany.market.business.CategorieEJB;
 import com.mycompany.market.model.Categorie;
+import com.mycompany.market.util.FileUploadUtils;
+import java.io.IOException;
 
 import javax.ejb.EJB;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.html.HtmlDataTable;
+import javax.faces.context.FacesContext;
 import javax.faces.model.ListDataModel;
+import javax.servlet.http.Part;
 
 
 @ManagedBean
@@ -55,28 +61,46 @@ public class CategorieController {
 
     public String doNew() {
         categorie = new Categorie();
-        return "new_categories.xhtml";
+        return "/sections/private/categorie/newCategorie.xhtml";
     }
 
     public String doCreate() {
-        categorie = categEJB.create(categorie);
+        try {
+            Part file = categorie.getFile();
+            System.out.println("File...: " + file);
+            String filePath = new FileUploadUtils(file, FacesContext.getCurrentInstance().getExternalContext()).uploadFile();
+            categorie.setImageLink(filePath);
+            categorie = categEJB.create(categorie);
+        } catch (IOException ex) {
+            Logger.getLogger(ProduitController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         listCategories = categEJB.findAll();
-        return "list_categories.xhtml";
+        return "/categories.xhtml";
     }
     
     public String doCancel() {
-        return "list_categories.xhtml";
+        return "/categories.xhtml";
     }
 
     public String doEdit() {
         categorie = (Categorie)categList.getRowData(); // Voici comment on trouve le livre sélectionné
-        return "edit_categories.xhtml";
+        return "/sections/private/categorie/editCategorie.xhtml";
     }
 
     public String doSave() {
-        categorie = categEJB.update(categorie);
+         try {
+            try{
+            Part file = categorie.getFile();
+            String filePath = new FileUploadUtils(file, FacesContext.getCurrentInstance().getExternalContext()).uploadFile();
+            categorie.setImageLink(filePath);
+            }catch (NullPointerException ex) {
+            }
+            categorie = categEJB.update(categorie);
+            } catch (IOException ex) {
+            Logger.getLogger(CategorieController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         listCategories = categEJB.findAll();
-        return "list_categories.xhtml";
+        return "/categories.xhtml";  
     }
     // ======================================
     // =          Getters & Setters         =

@@ -45,6 +45,8 @@ public class ProduitController {
     }
 
     private List<Produit> newProduits;
+    private List<Produit> produitsCateg;
+    private long idCategorie; //identifiant de la categorie
     // ======================================
     // =           Public Methods           =
     // ======================================
@@ -69,7 +71,7 @@ public class ProduitController {
     public String doCancel() {
         return "/produits.xhtml";
     }
-
+    
     public String doDelete() {
         List<Produit> produits = (List<Produit>)produitList.getWrappedData();
         produitEJB.delete(onlySelected(produits));
@@ -94,10 +96,21 @@ public class ProduitController {
         produit = produitEJB.update(produit);
         return "/produits.xhtml";
     }
+     public String doDetails() {
+        produit = produitEJB.findById(produit.getId());
+        return "/sections/products/detailsProduit.xhtml";
+    }
+    public String doShowProdCateg(long id) {
+        System.out.println("Id Categ:"+id);
+       // produit.getCategorie().setId(id);
+        idCategorie=id;
+        produitsCateg=getProduitsCateg();
+        return "/sections/products/listeProduitCateg.xhtml";
+    }
     // ======================================
     // =          Getters & Setters         =
     // ======================================
-
+     
     public Produit getProduit() {
         return produit;
     }
@@ -111,6 +124,14 @@ public class ProduitController {
         return produitList;
     }
 
+    public long getIdCategorie() {
+        return idCategorie;
+    }
+
+    public void setIdCategorie(long idCategorie) {
+        this.idCategorie = idCategorie;
+    }
+
     public void setProduitList(ListDataModel produitList) {
         this.produitList = produitList;
     }
@@ -122,7 +143,17 @@ public class ProduitController {
     public void setDataTable(HtmlDataTable dataTable) {
         this.dataTable = dataTable;
     }
-
+    //Methode pour recuperer les produits d'une categorie donnée
+    public List<Produit> getProduitsCateg() {
+        List<Produit> news = produitEJB.findAllByCateg(idCategorie);
+        for (int i = 0; i < news.size(); i++) {
+            Produit p = news.get(i);
+            String des = p.getDescription();
+            des = des.length() > 50 ? des.substring(0, 48) + "..." : des;
+            p.setDescription(des);
+        }
+        return news;
+    }
     public List<Produit> getNewProduits() {
         List<Produit> news = produitEJB.findAll();
         for (int i = 0; i < news.size(); i++) {

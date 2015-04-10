@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:body>
+        <ui:composition template="/WEB-INF/templates/twocol_a.xhtml">
+            <!-- Right column -->
+            <ui:define name="right" class="width75">
+                  <div class="floatRight width75">
+                    <h:form>
+                        <h3>Liste de produits par categorie</h3>
+                        <h:commandButton action="#{produitController.doNew()}" class="btn btn-primary" value="Créer un nouveau"></h:commandButton> 
+                        <br/>
+                    </h:form>
+
+                    <h:form>
+                        <ui:repeat value="#{produitController.produitsCateg}" var="produit">
+                            <!--<div class="row">-->
+                            <div class="col-md-4">
+                                <div class="thumbnail">
+                                    <img src="#{request.contextPath}#{produit.imageLink}" alt="Avatar"/>
+                                    <div class="caption">
+                                        <h4>#{produit.libelle}</h4>
+                                        <p class="label label-danger">#{produit.prix} €</p>
+                                        <p>#{produit.description}</p>
+                                        <p style="text-align: center"> <h:commandButton action="#{panierController.addToCart(produit.id)}" class="btn btn-primary" value="Ajouter"/> 
+                                &nbsp;  <h:commandButton action="#{produitController.doDetails()}" value="Details" class="btn btn-success">
+                                            <f:setPropertyActionListener target="#{produitController.produit}" value= "#{produit}" />
+                                        </h:commandButton></p>
+                                        <!--<a href="{request.contextPath}{produitController.doDetails(produit.id)}" class="btn btn-success" role="button">Voir detail</a></p>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--</div>-->
+                        </ui:repeat>
+                    </h:form>
+                </div>                              
+            </ui:define>
+            <!-- Right column end -->
+        </ui:composition>
+    </h:body>
+</html>

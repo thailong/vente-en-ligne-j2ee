@@ -424,12 +424,14 @@ ul.thumbs li {
 
 a.thumb img {
   
-  border: 5px solid #ccc;
+  border: 0px solid #ccc;
 }
 
 a:hover.thumb img {
   background: #8EB4C6;
-  border: 5px solid #668FA3;
+  border: 0px solid #668FA3;
+  border-radius: 5px;
+  
 }
 
 a:hover.thumb {

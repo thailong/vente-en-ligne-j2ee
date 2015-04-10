@@ -7,6 +7,7 @@ package com.mycompany.market.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -33,6 +34,8 @@ public class Categorie implements Serializable {
     private String imageLink;
     @Transient
     private Boolean selected;
+    @Transient
+    private Part file;
     
 
     
@@ -74,6 +77,14 @@ public class Categorie implements Serializable {
 
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
+    }
+
+    public Part getFile() {
+        return file;
+    }
+
+    public void setFile(Part file) {
+        this.file = file;
     }
     
     public boolean isSelected() {

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <ui:composition template="/WEB-INF/templates/twocol_a.xhtml">
+             <!-- Right column -->
+            <ui:define name="right" class="width75">
+            <div class="floatRight width75">
+                <h:form>
+                    <h3>Details du produit</h3> 
+                    <div class="row">
+                        <div class="thumbnail col-xs-6">
+                            <img src="#{request.contextPath}#{produitController.produit.imageLink}" alt="Description"/>
+                        </div>
+                        <div class="thumbnail col-xs-6" >
+                            <table border="0">
+                                <tr><td><h4>#{produitController.produit.libelle}"</h4></td></tr>
+                                <tr><td><p style="color:blue"><b>Description:</b></p></td></tr>
+                                <tr><td>#{produitController.produit.description}"</td></tr>
+                                <tr><td><h4> <p class="label label-danger" >#{produitController.produit.prix} €</p></h4></td></tr>
+                            </table>
+                               
+                        </div>
+                        <p><a href="#{request.contextPath}#{panierController.addToCart(produitController.produit.id)}" class="btn btn-success" role="button">Ajouter au panier</a>
+                            <a href="#{request.contextPath}#{produitController.doCancel()}" class="btn btn-info" role="button"> Continuer Achats</a>
+                        </p>
+
+
+                    </div>
+
+                </h:form>
+
+            </div>  
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
