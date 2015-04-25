@@ -43,6 +43,7 @@ public class UserEJB {
     
     public User findByName(String userName){
         Query query = em.createNamedQuery(User.FIND_USERBYNAME).setParameter("userName", userName);
-        return (User)query.getResultList().get(0);
+        List<User> users = query.getResultList();
+        return users.size() == 0 ? null : users.get(0);
     }
 }

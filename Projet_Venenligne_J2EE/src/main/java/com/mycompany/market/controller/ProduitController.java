@@ -1,5 +1,6 @@
 package com.mycompany.market.controller;
 
+import com.mycompany.market.business.CategorieEJB;
 import com.mycompany.market.business.ProduitEJB;
 import com.mycompany.market.business.ProduitEJB;
 import com.mycompany.market.model.Categorie;
@@ -7,7 +8,10 @@ import com.mycompany.market.model.Produit;
 import com.mycompany.market.util.FileUploadUtils;
 import java.io.File;
 import java.io.IOException;
+import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.ejb.EJB;
 import java.util.Iterator;
@@ -34,10 +38,14 @@ public class ProduitController {
 
     @EJB
     private ProduitEJB produitEJB;
-
+    @EJB
+    private CategorieEJB categorieEJB;
+    
     private HtmlDataTable dataTable;
 
     private Produit produit = new Produit();
+    private List<Produit> listCorres = new ArrayList<>();
+    
     private ListDataModel produitList; // j'ai utilisé un ListDataModel et pas List parce que cela permet de retrouver l'élément sélectionné dans la liste (pour l'édition d'un livre)
 
     private void updateProduitList() {
@@ -47,6 +55,8 @@ public class ProduitController {
     private List<Produit> newProduits;
     private List<Produit> produitsCateg;
     private long idCategorie; //identifiant de la categorie
+    private String keyword;
+
     // ======================================
     // =           Public Methods           =
     // ======================================
@@ -61,6 +71,7 @@ public class ProduitController {
             Part file = produit.getFile();
             String filePath = new FileUploadUtils(file, FacesContext.getCurrentInstance().getExternalContext()).uploadFile();
             produit.setImageLink(filePath);
+            produit.setCreatedDate(new java.sql.Date(new java.util.Date().getTime()));
             produit = produitEJB.create(produit);
         } catch (IOException ex) {
             Logger.getLogger(ProduitController.class.getName()).log(Level.SEVERE, null, ex);
@@ -154,8 +165,15 @@ public class ProduitController {
         }
         return news;
     }
+    
+    //Recuperer tous les new produits pour tous les categories
     public List<Produit> getNewProduits() {
-        List<Produit> news = produitEJB.findAll();
+        List<Categorie> categories = categorieEJB.findAll();
+        List<Produit> news = new ArrayList<>();
+        for (Categorie category : categories) {
+            news.addAll(produitEJB.findNewsByCateg(category.getId()));
+        }
+        
         for (int i = 0; i < news.size(); i++) {
             Produit p = news.get(i);
             String des = p.getDescription();
@@ -171,4 +189,36 @@ public class ProduitController {
 //        news.add(new Produit(1, "Produit A", 400.00, "descriptiondescription", 100, "/uploads/81ccLffmzxL._SL1500_.jpg", new Categorie("AAA", "AAAA")));
         return news;
     }
+    
+    public String searching(){
+        return "/sections/products/searchProduits.xhtml";
+    }
+
+    public List<Produit> getListCorres() {
+        List<Produit> tous = produitEJB.findAll();
+        listCorres.clear();
+        if (keyword != null || keyword.trim().isEmpty())
+            for (Produit pro : tous) {
+                if (pro.getLibelle().toLowerCase().contains(keyword.toLowerCase())){
+                    listCorres.add(pro);
+                }
+            }
+        for (int i = 0; i < listCorres.size(); i++) {
+            Produit p = listCorres.get(i);
+            String des = p.getDescription();
+            des = des.length() > 70 ? des.substring(0, 65) + "..." : des;
+            p.setDescription(des);
+        }
+                
+        return listCorres;
+    }
+    
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+    
 }

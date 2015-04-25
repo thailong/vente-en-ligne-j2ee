@@ -1,6 +1,7 @@
 package com.mycompany.market.controller;
 
 import com.mycompany.market.business.BookEJB;
+import com.mycompany.market.business.UserEJB;
 import com.mycompany.market.model.User;
 import javax.faces.bean.ManagedBean;
 import javax.ejb.EJB;
@@ -24,7 +25,7 @@ public class LoginController {
     // ======================================
 
     @EJB
-    private BookEJB bookEJB;
+    private UserEJB userEJB;
 
     private User user= new User();
 
@@ -40,6 +41,7 @@ public class LoginController {
             currentUser.login( token );
             Session sess = currentUser.getSession();
             sess.setAttribute(USERNAMESESSION, user.getUsername());
+            user = userEJB.findByName(user.getUsername());
             //if no exception, that's it, we're done!
         } catch (AuthenticationException e) {
             addWarnMessage("Connexion impossible : ", "vérifiez les paramètres saisis");

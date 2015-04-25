@@ -50,6 +50,9 @@ public class PanierController {
     
     private Ordre newOrder = new Ordre();
     
+    private double prixTotal;
+    
+    
     // ======================================
     // =           Public Methods           =
     // ======================================
@@ -269,6 +272,17 @@ public class PanierController {
     // =          Getters & Setters         =
     // ======================================
 
+    public double getPrixTotal() {
+        if (listOrders == null){
+            listOrders = getOrders();
+        }
+        prixTotal = 0;
+        for (OrderVM ordre : listOrders) {
+            prixTotal += ordre.getQuality() * ordre.getProduit().getPrix();
+        }
+
+        return Math.floor(prixTotal);
+    }
 
     public HtmlDataTable getDataTable() {
         return dataTable;

@@ -6,6 +6,7 @@
 package com.mycompany.market.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,13 +27,15 @@ import javax.validation.constraints.Size;
 @Entity
 @NamedQueries({
     @NamedQuery(name = Produit.FIND_ALL, query = "SELECT p FROM Produit p"),
-    @NamedQuery(name = Produit.FIND_PRODUCTBYCATEG, query = "SELECT p FROM Produit p WHERE p.categorie.id =:idCateg")
+    @NamedQuery(name = Produit.FIND_PRODUCTBYCATEG, query = "SELECT p FROM Produit p WHERE p.categorie.id =:idCateg"),
+    @NamedQuery(name = Produit.FIND_NEWPRODUCTBYCATEG, query = "SELECT p FROM Produit p WHERE p.categorie.id =:idCateg ORDER BY p.createdDate DESC")
 })
 public class Produit implements Serializable{
     public final static String FIND_ALL = "Produit.findAll";
     public final static String Del_SOM = "Produit.delete";
     public final static String FIND_PRODUCTBYCATEG = "Produit.findProductByCateg";
-
+    public final static String FIND_NEWPRODUCTBYCATEG = "Produit.findNewsProductByCateg";
+    
     @Id
     @GeneratedValue
     private int id;
@@ -49,7 +52,17 @@ public class Produit implements Serializable{
     private Boolean selected;
     @Transient
     private Part file;
+    
+    private Date createdDate;
 
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+    
     public Part getFile() {
         return file;
     }

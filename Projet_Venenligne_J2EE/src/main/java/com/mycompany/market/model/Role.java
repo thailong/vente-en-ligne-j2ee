@@ -13,7 +13,13 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="user_roles")
+@NamedQueries({
+    @NamedQuery(name = Role.FIND_ALL, query = "SELECT r FROM Role r"),
+})
 public class Role implements Serializable {
+    public final static String FIND_ALL = "Role.findAll";
+    public final static String ADMINROLE = "produitadmin";
+    public final static String SIMPLEUSERROLE = "simpleUser";
     @Id
     @GeneratedValue
     private long id;

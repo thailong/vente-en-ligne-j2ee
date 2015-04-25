@@ -6,6 +6,7 @@ package com.mycompany.market.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -25,12 +26,70 @@ public class User implements Serializable {
     @Id
     @GeneratedValue
     private long id;
+
+    public String getRepassword() {
+        return repassword;
+    }
+
+    public void setRepassword(String repassword) {
+        this.repassword = repassword;
+    }
     
     @Column(name="username")
     private String username;
     @Column(name="password")
     private String password;
+    @Transient
+    private String repassword;
+    
+    private String fullname;
+    private String avatar;
+    private String adresse;
+    private String telephone;
 
+    public Part getFile() {
+        return file;
+    }
+
+    public void setFile(Part file) {
+        this.file = file;
+    }
+    
+    @Transient
+    private Part file;
+    
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+    
     public String getPassword() {
         return password;
     }

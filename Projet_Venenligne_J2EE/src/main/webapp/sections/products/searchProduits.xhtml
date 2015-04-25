@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#xA0;"> 
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+        <ui:composition template="/WEB-INF/templates/twocol_a.xhtml">
+            <ui:define name="right" class="width75">
+                <div class="floatRight width75">
+                    <p class="label label-info">Liste de produits corresponde à "#{produitController.keyword}"</p>
+                    <br/>
+                    <h:form>
+                        <ui:repeat value="#{produitController.listCorres}" var="produit">
+                            <!--<div class="row">-->
+                                <div class="col-md-4">
+                                    <div class="thumbnail">
+                                        <img src="#{request.contextPath}#{produit.imageLink}" alt="Avatar"/>
+                                        <div class="caption">
+                                            <h4>#{produit.libelle}</h4>
+                                            <p class="label label-danger">#{produit.prix} €</p>
+                                            <p>#{produit.description}</p>
+                                            <p style="text-align: center"> <h:commandButton action="#{panierController.addToCart(produit.id)}" class="btn btn-primary" value="Ajouter"/> 
+                                    &nbsp;<h:commandButton action="#{produitController.doDetails()}" value="Details" class="btn btn-success">
+                                                <f:setPropertyActionListener target="#{produitController.produit}" value= "#{produit}" />
+                                            </h:commandButton></p>
+                                            <!--<a href="{request.contextPath}{produitController.doDetails(produit.id)}" class="btn btn-success" role="button">Voir detail</a></p>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            <!--</div>-->
+                        </ui:repeat>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

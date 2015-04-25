@@ -7,23 +7,24 @@
     <h:body>
         <ui:composition>
             <!-- Right column -->
-            <div class="floatRight width75">
+            <div class="floatRight width75 text-center">
                 <h1>Connexion</h1>
-
                 <h:form>
-                    <h:messages showDetail="true"/>
-                    <table border="0">
-                        <tr>
-                            <td><h:outputLabel value="Username: "/></td>
-                            <td><h:inputText value="#{loginController.user.username}"/></td>
-                        </tr>
-                        <tr>
-                            <td><h:outputLabel value="Password: "/></td>
-                            <td><h:inputSecret value="#{loginController.user.password}"/></td>
-                        </tr>
-                    </table>
-
-                    <h:commandButton value="Se connecter" action="#{loginController.doLogin}"/>
+                    <h:messages class="text text-danger" showDetail="true"/>
+                    <div class="col-md-8 col-md-offset-2">
+                        <p>
+                            <label for="username">Username</label>
+                            <h:inputText class="form-control" id="username" value="#{loginController.user.username}"/>
+                        </p>
+                        <p>
+                            <label for="password">Password</label>
+                            <h:inputSecret class="form-control" id="password" value="#{loginController.user.password}"/>
+                        </p>
+                        <div class="text-center">
+                            <h:commandButton class="btn btn-primary" value="Se connecter" action="#{loginController.doLogin}"/>
+                            <h:commandButton class="btn btn-info" action="#{userController.doNew()}" value="Creer un nouveau"></h:commandButton>
+                        </div>    
+                    </div>
                 </h:form>
 
             </div>

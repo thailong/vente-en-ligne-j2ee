@@ -7,7 +7,7 @@ import javax.ejb.Stateless;
 
 @Stateless
 public class ProduitEJB {
-
+    private final static int MAX_NEWS = 3;
     // ======================================
     // =             Attributes             =
     // ======================================
@@ -25,6 +25,12 @@ public class ProduitEJB {
     public List<Produit> findAllByCateg(long idCat) {
         
         Query query = em.createNamedQuery(Produit.FIND_PRODUCTBYCATEG).setParameter("idCateg", idCat);
+        return query.getResultList();
+    }
+    
+    public List<Produit> findNewsByCateg(long idCat) {
+        
+        Query query = em.createNamedQuery(Produit.FIND_PRODUCTBYCATEG).setParameter("idCateg", idCat).setMaxResults(MAX_NEWS);
         return query.getResultList();
     }
     

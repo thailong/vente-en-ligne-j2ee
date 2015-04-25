@@ -9,16 +9,23 @@ and open the template in the editor.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:shiro="http://shiro.apache.org/tags">
     <h:body>
         <div class="floatRight width75">
             <div>
-                <h3>Liste de ordres courant</h3>
+                <shiro:authenticated>
+                    <h2>Bonjour #{loginController.user.fullname} !</h2>
+                </shiro:authenticated>
                 <c:if test="#{panierController.orders.size()==0}">
                     <p>Votre panier est vide actuellement</p>
                 </c:if>
                 <c:if test="#{panierController.orders.size()!=0}">
-                    <h:form>
+                    <h:form class="borderBlue">
+                        <p class="bg-success" style="font-size: 20px">
+                            Vous avez <span class="label label-danger">#{panierController.orders.size()}</span> articles dans le panier avec le prix total à
+                            <span class="label label-danger glyphicon-euro text-right">#{panierController.prixTotal}</span>
+                        </p>
                         <p class="btn btn-group text-right">
                                 <h:commandButton class="btn btn-info" value="Passer la commande" />
                                 <h:commandButton action="#{panierController.doContinue()}" class="btn btn-success" value="Continuer l'achat" />
@@ -46,7 +53,7 @@ and open the template in the editor.
                           </div>
                           <p>#{order.produit.description}</p>
                           <p class="btn btn-group pull-right">
-                              <h:commandButton action="#{panierController.doUpdateQuantity(order)}" class="btn btn-success" value="Sauvegarder"/>
+                              <h:commandButton action="#{panierController.doUpdateQuantity(order)}" class="btn btn-success" value="Mettre à jour"/>
                               <h:commandButton action="#{panierController.doDeleteOrder(order)}" class="btn btn-danger" value="Supprimer"/>
                           </p>
                         </div>

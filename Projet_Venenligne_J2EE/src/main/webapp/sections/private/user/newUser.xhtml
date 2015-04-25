@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:body>
+        <ui:composition template="/WEB-INF/templates/twocol_a.xhtml">
+            <!-- Right column -->
+            <ui:define name="right" class="width75">
+                <div class="floatRight width75">
+                    <h3>Créer un nouveau utilisateur...</h3>
+                    <h:form enctype="multipart/form-data">
+                        <!-- register a PostValidateEvent -->
+                        <f:event listener="#{userController.validatePassword}" type="postValidate" />
+                        <div class="form-group">
+                          <label for="username">Username</label>
+                          <h:inputText class="form-control" id="username" value="#{userController.user.username}" required="true" requiredMessage="Username est obligatoire"/>
+                          <h:message for="username" style="color: red;" />
+                        </div>
+                        <div class="form-group">
+                          <label for="password">Mot de passe</label>
+                          <h:inputSecret class="form-control" id="password" value="#{userController.user.password}" required="true" requiredMessage="Mot de passe est obligatoire"/>
+                          <h:message for="password" style="color: red;" />
+                        </div>
+                        <div class="form-group">
+                          <label for="confirmPassword">Confirmer le mot de passe</label>
+                          <h:inputSecret class="form-control" id="confirmPassword" value="#{userController.user.repassword}" required="true" requiredMessage="Re-mot de passe est obligatoire"/>
+                          <h:message for="confirmPassword" style="color: red;" />
+                        </div>
+                        <div class="form-group">
+                          <label for="Fullname">Nom complète</label>
+                          <h:inputText class="form-control" id="Fullname" value="#{userController.user.fullname}" required="true" requiredMessage="Nom complete est obligatoire"/>
+                          <h:message for="Fullname" style="color: red;" />
+                        </div>
+                        <div class="form-group">
+                          <label for="Adresse">Adresse</label>
+                          <h:inputText class="form-control" id="Addresse" value="#{userController.user.adresse}"/>
+                        </div>
+                        <div class="form-group">
+                          <label for="Telephone">Numéro de téléphone</label>
+                          <h:inputText class="form-control" id="Telephone" value="#{userController.user.telephone}" required="true" requiredMessage="Numero de telephone est obligatoire"/>
+                          <h:message for="Telephone" style="color: red;" />
+                        </div>
+                        <div class="form-group">
+                          <label for="inputImageUpload">Photo de profile</label>
+                          <h:inputFile id="inputImageUpload" value="#{userController.user.file}"/>
+                          <p class="help-block">Choisir une image de profile</p>
+                        </div>
+                        <div style="margin: 5px">
+                            <h:commandButton action="#{userController.doCreate}" class="btn btn-primary" value="Créer"/>
+                            <h:commandButton action="#{userController.doCancel}" class="btn btn-warning" value="Annuler"/>
+                        </div>
+                    </h:form>
+                </div>                                
+            </ui:define>
+            <!-- Right column end -->
+        </ui:composition>
+    </h:body>
+</html>
+
