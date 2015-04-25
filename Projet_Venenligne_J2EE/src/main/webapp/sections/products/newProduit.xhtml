@@ -10,30 +10,30 @@
             <!-- Right column -->
             <ui:define name="right" class="width75">
                 <div class="floatRight width75">
-                    <h3>Creer un nouveau produit...</h3>
+                    <h3>Nouveau produit...</h3>
                     <h:form enctype="multipart/form-data">
-                        <div class="form-group">
+                        <div class="form-group" style="width: 470px">
                           <label for="Libelle">Libelle</label>
                           <h:inputText class="form-control" id="Libelle" value="#{produitController.produit.libelle}"/>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="width: 470px">
                           <label for="Description">Description</label>
                           <h:inputTextarea class="form-control" rows="3" id="Description" value="#{produitController.produit.description}"/>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="width: 470px">
                           <label for="Prix">Prix</label>
                           <h:inputText class="form-control" id="Prix" value="#{produitController.produit.prix}"/>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="width: 470px">
                           <label for="NbActicle">Nombre d'acticle</label>
                           <h:inputText class="form-control" id="NbActicle" value="#{produitController.produit.nbArticles}"/>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="width: 470px">
                           <label for="inputImageUpload">Image Upload</label>
                           <h:inputFile id="inputImageUpload" value="#{produitController.produit.file}"/>
                           <p class="help-block">Choisir une image de ce produit.</p>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="width: 470px">
                           <label for="Categorie">Categorie</label>
                           <h:selectOneMenu class="selectpicker" value="#{produitController.produit.categorie}" required="true" requiredMessage="You must choose one category">
                               <f:selectItems value="#{categorieController.listCategories}" var="ph"
@@ -42,7 +42,7 @@
                         </div>
                         <div style="margin: 5px">
                             <h:commandButton action="#{produitController.doCreate}" class="btn btn-primary" value="Créer"/>
-                            <h:commandButton action="#{produitController.doCancel}" class="btn btn-warning" value="Annuler"/>
+                            &nbsp;<h:commandButton action="#{produitController.doCancel}" class="btn btn-warning" value="Annuler"/>
                         </div>
                     </h:form>
                 </div>                                

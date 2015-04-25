@@ -4,7 +4,9 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<!DOCTYPE html>
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#xA0;"> 
+]>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -23,12 +25,11 @@ and open the template in the editor.
                 <c:if test="#{panierController.orders.size()!=0}">
                     <h:form class="borderBlue">
                         <p class="bg-success" style="font-size: 20px">
-                            Vous avez <span class="label label-danger">#{panierController.orders.size()}</span> articles dans le panier avec le prix total à
+                            Vous avez <span class="label label-danger">#{panierController.orders.size()}</span> articles dans le panier au prix total de
                             <span class="label label-danger glyphicon-euro text-right">#{panierController.prixTotal}</span>
                         </p>
-                        <p class="btn btn-group text-right">
-                                <h:commandButton class="btn btn-info" value="Passer la commande" />
-                                <h:commandButton action="#{panierController.doContinue()}" class="btn btn-success" value="Continuer l'achat" />
+                        <p> <h:commandButton class="btn btn-info" value="Passer la commande" />
+                                &nbsp;<h:commandButton action="#{panierController.doContinue()}" class="btn btn-success" value="Continuer les achats" />
                         </p>
                     </h:form>                        
                 </c:if>          
@@ -52,9 +53,9 @@ and open the template in the editor.
                             </h:selectOneMenu>
                           </div>
                           <p>#{order.produit.description}</p>
-                          <p class="btn btn-group pull-right">
+                          <p class="pull-right">
                               <h:commandButton action="#{panierController.doUpdateQuantity(order)}" class="btn btn-success" value="Mettre à jour"/>
-                              <h:commandButton action="#{panierController.doDeleteOrder(order)}" class="btn btn-danger" value="Supprimer"/>
+                              &nbsp;<h:commandButton action="#{panierController.doDeleteOrder(order)}" class="btn btn-danger" value="Supprimer"/>
                           </p>
                         </div>
                     </div>

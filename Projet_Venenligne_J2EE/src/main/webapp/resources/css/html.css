@@ -101,6 +101,9 @@ a:hover img.border {
 img.floatRight {
   margin: 5px 0 10px 10px;
 }
+img.floatRightBtn {
+  margin: 5px 0 10px 10px;
+}
 
 img.floatLeft {
   margin: 5px 10px 10px 0;

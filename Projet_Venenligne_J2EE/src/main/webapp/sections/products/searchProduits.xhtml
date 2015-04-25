@@ -15,7 +15,7 @@ and open the template in the editor.
         <ui:composition template="/WEB-INF/templates/twocol_a.xhtml">
             <ui:define name="right" class="width75">
                 <div class="floatRight width75">
-                    <p class="label label-info">Liste de produits corresponde à "#{produitController.keyword}"</p>
+                    <p class="label label-info">Liste des produits correspondant à "#{produitController.keyword}"</p>
                     <br/>
                     <h:form>
                         <ui:repeat value="#{produitController.listCorres}" var="produit">

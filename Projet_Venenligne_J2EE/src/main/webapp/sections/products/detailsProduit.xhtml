@@ -4,11 +4,14 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<!DOCTYPE html>
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#xA0;"> 
+]>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:shiro="http://shiro.apache.org/tags">
     <h:body>
         <ui:composition template="/WEB-INF/templates/twocol_a.xhtml">
              <!-- Right column -->
@@ -29,9 +32,22 @@ and open the template in the editor.
                             </table>
                                
                         </div>
-                        <p><a href="#{request.contextPath}#{panierController.addToCart(produitController.produit.id)}" class="btn btn-success" role="button">Ajouter au panier</a>
-                            <a href="#{request.contextPath}#{produitController.doCancel()}" class="btn btn-info" role="button"> Continuer Achats</a>
-                        </p>
+                        <shiro:notAuthenticated>
+                            <p><a href="#{request.contextPath}#{panierController.addToCart(produitController.produit.id)}" class="btn btn-success" role="button">Ajouter au panier</a>
+                                <a href="#{request.contextPath}#{produitController.doCancel()}" class="btn btn-info" role="button"> Continuer Achats</a></p>
+                        </shiro:notAuthenticated>
+                        <shiro:authenticated>
+                            <shiro:hasRole name="produitadmin">
+                                <p><a href="#{request.contextPath}#{produitController.doEdit()}" class="btn btn-success" role="button">Modifier</a>
+                                    &nbsp;<h:commandButton action="#{produitController.doDelete}" class="btn btn-danger" value="Supprimer"/>
+                                    </p>
+                            </shiro:hasRole>
+                            <shiro:hasRole name="simpleUser">
+                                <p><a href="#{request.contextPath}#{panierController.addToCart(produitController.produit.id)}" class="btn btn-success" role="button">Ajouter au panier</a>
+                                    <a href="#{request.contextPath}#{produitController.doCancel()}" class="btn btn-info" role="button"> Continuer Achats</a></p>
+                            </shiro:hasRole>
+                        </shiro:authenticated>
+                        
 
 
                     </div>

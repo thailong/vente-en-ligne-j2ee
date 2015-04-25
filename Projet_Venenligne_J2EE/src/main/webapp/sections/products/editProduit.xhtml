@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html [
+    <!ENTITY nbsp "&#xA0;"> 
+]>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"  
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/WEB-INF/templates/twocol_a.xhtml">
+
+        <ui:define name="title">Edition de produits</ui:define>
+        <ui:define name="right" class="width75">
+            <!-- Right column -->
+            <div class="floatRight width75">
+                 <h3>Mise a jour produits</h3>
+                 <h:form enctype="multipart/form-data">
+                    <div class="form-group" style="width: 470px">
+                        <label for="Libelle">Libelle</label>
+                        <h:inputText class="form-control" id="Libelle" value="#{produitController.produit.libelle}"/>
+                    </div>
+                    <div class="form-group" style="width: 470px">
+                      <label for="Description">Description</label>
+                      <h:inputTextarea class="form-control" rows="3" id="Description" value="#{produitController.produit.description}"/>
+                    </div>
+                    <div class="form-group" style="width: 470px">
+                      <label for="Prix">Prix</label>
+                      <h:inputText class="form-control" id="Prix" value="#{produitController.produit.prix}"/>
+                    </div>
+                    <div class="form-group" style="width: 470px">
+                      <label for="NbActicle">Nombre d'acticle</label>
+                      <h:inputText class="form-control" id="NbActicle" value="#{produitController.produit.nbArticles}"/>
+                    </div>
+                     <div class="thumbnail width50">
+                         <label>Image du produit</label>
+                         <img src="#{request.contextPath}#{produitController.produit.imageLink}" alt="Image categorie" />
+                     </div>
+                    <div class="form-group" style="width: 470px">
+                      <label for="inputImageUpload">Changer image</label>
+                      <h:inputFile id="inputImageUpload" value="#{produitController.produit.file}"/>
+                    </div>
+                    <div class="form-group" style="width: 470px">
+                      <label for="Categorie">Categorie</label>
+                      <h:selectOneMenu value="#{produitController.produit.categorie}" class="selectpicker" required="true" requiredMessage="You must choose one category">
+                          <f:selectItems value="#{categorieController.listCategories}" var="ph"
+                                         itemLabel="#{ph.libelle}" itemValue="#{ph}" />
+                      </h:selectOneMenu>
+                    </div>
+                     <br/>
+                         <h:commandButton value="Enregistrer" action="#{produitController.doSave}" class="btn btn-primary"/>
+                         &nbsp;<h:commandButton value="Retour" action="#{produitController.doCancel}" class="btn btn-warning"/>
+                 </h:form>
+            </div>
+            <!-- Right column end -->
+        </ui:define>
+
+    </ui:composition>
+
+</html>

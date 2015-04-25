@@ -10,33 +10,65 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:shiro="http://shiro.apache.org/tags">
     <h:body>
         <div class="floatRight width75">
             <h:form>
-                <h3>Liste de nouveaux produits</h3>
-                <h:commandButton action="#{produitController.doNew()}" class="btn btn-primary" value="Créer un nouveau"></h:commandButton> 
+                
+                <shiro:notAuthenticated>
+                            <h3>Liste de nouveaux produits</h3>
+                </shiro:notAuthenticated>
+                <shiro:authenticated>
+                    <shiro:hasRole name="produitadmin">
+                        <h3>Liste de nouveaux produits
+                        &nbsp;&nbsp;<h:commandButton action="#{produitController.doNew()}" class="btn btn-success floatRightBtn" value="Créer un nouveau"></h:commandButton> </h3>
+                    </shiro:hasRole>
+                    <shiro:hasRole name="simpleUser">
+                        <h3>Liste de nouveaux produits</h3>
+                    </shiro:hasRole>
+                </shiro:authenticated>
                 <br/>
             </h:form>
             
             <h:form>
                 <ui:repeat value="#{produitController.newProduits}" var="produit">
                     <!--<div class="row">-->
-                        <div class="col-md-4">
-                            <div class="thumbnail">
-                                <img src="#{request.contextPath}#{produit.imageLink}" alt="Avatar"/>
-                                <div class="caption">
-                                    <h4>#{produit.libelle}</h4>
-                                    <p class="label label-danger">#{produit.prix} €</p>
-                                    <p>#{produit.description}</p>
-                                    <p style="text-align: center"> <h:commandButton action="#{panierController.addToCart(produit.id)}" class="btn btn-primary" value="Ajouter"/> 
-                            &nbsp;<h:commandButton action="#{produitController.doDetails()}" value="Details" class="btn btn-success">
-                                        <f:setPropertyActionListener target="#{produitController.produit}" value= "#{produit}" />
-                                    </h:commandButton></p>
-                                    <!--<a href="{request.contextPath}{produitController.doDetails(produit.id)}" class="btn btn-success" role="button">Voir detail</a></p>-->
-                                </div>
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <img src="#{request.contextPath}#{produit.imageLink}" alt="Avatar"/>
+                            <div class="caption">
+                                <h4>#{produit.libelle}</h4>
+                                <p class="label label-danger">#{produit.prix} €</p>
+                                <p>#{produit.description}</p>
+                                <shiro:notAuthenticated>
+                                   <h:commandButton action="#{panierController.addToCart(produit.id)}" class="btn btn-primary" value="Ajouter"/>
+                                   &nbsp;<h:commandButton action="#{produitController.doDetails()}" value="Details" class="btn btn-success">
+                                                <f:setPropertyActionListener target="#{produitController.produit}" value= "#{produit}" />
+                                            </h:commandButton>
+                                </shiro:notAuthenticated>
+                                <shiro:authenticated>
+                                    <shiro:hasRole name="produitadmin">
+                                        <h:commandButton action="#{produitController.doEdit()}" class="btn btn-primary" value="Modifier">
+                                            <f:setPropertyActionListener target="#{produitController.produit}" value= "#{produit}" />
+                                        </h:commandButton>
+                                        &nbsp;<h:commandButton action="#{produitController.doDetails()}" value="Details" class="btn btn-success">
+                                                <f:setPropertyActionListener target="#{produitController.produit}" value= "#{produit}" />
+                                            </h:commandButton>
+                                    </shiro:hasRole>
+                                    <shiro:hasRole name="simpleUser">
+                                        <h:commandButton action="#{panierController.addToCart(produit.id)}" class="btn btn-primary" value="Ajouter"/>    
+                                        &nbsp;<h:commandButton action="#{produitController.doDetails()}" value="Details" class="btn btn-success">
+                                                <f:setPropertyActionListener target="#{produitController.produit}" value= "#{produit}" />
+                                            </h:commandButton>
+                                    </shiro:hasRole>
+                                </shiro:authenticated>
+
+
+                                <!--<a href="{request.contextPath}{produitController.doDetails(produit.id)}" class="btn btn-success" role="button">Voir detail</a></p>-->
                             </div>
                         </div>
+                    </div>
                     <!--</div>-->
                 </ui:repeat>
             </h:form>
